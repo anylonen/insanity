@@ -1,0 +1,13 @@
+{
+  "generator-yeogurt": {
+    "config": {
+      "projectName": "insanity",
+      "htmlOption": "jade",
+      "jsPreprocessor": "es6",
+      "cssOption": "sass",
+      "sassSyntax": "scss",
+      "testFramework": "jasmine"
+    },
+    "version": "1.4.0"
+  }
+}
