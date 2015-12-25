@@ -6,9 +6,16 @@
 import $ from 'jquery';
 import ROT from 'rot-js'
 
+var Player = function(x, y) {
+    this._x = x;
+    this._y = y;
+    this._draw();
+}
+
 var Game = {
     display: null,
     map: {},
+    player: null,
 
     init: function() {
         this.display = new ROT.Display();
@@ -31,8 +38,17 @@ var Game = {
         digger.create(digCallback.bind(this));
 
         this._generateBoxes(freeCells);
-
         this._drawWholeMap();
+        this._createPlayer(freeCells);
+    },
+
+    _createPlayer: function(freeCells) {
+        var index = Math.floor(ROT.RNG.getUniform() * freeCells.length);
+        var key = freeCells.splice(index, 1)[0];
+        var parts = key.split(",");
+        var x = parseInt(parts[0]);
+        var y = parseInt(parts[1]);
+        this.player = new Player(x, y);
     },
 
     _generateBoxes: function(freeCells) {
@@ -52,5 +68,9 @@ var Game = {
         }
     }
 };
+
+Player.prototype._draw = function() {
+    Game.display.draw(this._x, this._y, "@", "#FF0");
+}
 
 Game.init();
